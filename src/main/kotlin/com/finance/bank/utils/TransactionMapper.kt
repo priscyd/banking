@@ -1,0 +1,26 @@
+package com.finance.bank.utils
+
+import com.finance.bank.controller.models.TransactionDTO
+import com.finance.bank.repository.models.TransactionDBModel
+
+object TransactionMapper {
+
+    fun toDto(model: TransactionDBModel): TransactionDTO{
+        val transactionDTO = TransactionDTO(
+            targetAccount = model.accountIdentifier!!,
+            amount = model.amount!!,
+            description = model.description
+        )
+
+        return transactionDTO
+    }
+
+    fun toEntity(dto: TransactionDTO): TransactionDBModel{
+        val model =  TransactionDBModel()
+        model.accountIdentifier = dto.targetAccount
+        model.amount = dto.amount
+        model.description = dto.description
+        return model
+    }
+
+}

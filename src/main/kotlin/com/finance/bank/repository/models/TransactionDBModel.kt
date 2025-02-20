@@ -1,21 +1,31 @@
 package com.finance.bank.repository.models
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import java.util.Date
-import java.util.UUID
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.finance.bank.controller.models.TransactionDTO
+import jakarta.persistence.*
+import java.util.*
 
 @Entity
-class TransactionDBModel (
-    val accountIdentifier: String,
-    val amount : Double,
-    val description: String=""
-){
+@Table(name = "Transaction")
+class TransactionDBModel {
     @Id
-    @GeneratedValue
-    var id: UUID? = null
-    val date: Date = Date()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
+    var date: Date = Date()
+    var accountIdentifier: String? = ""
+    var amount: Double? = 0.0
+    var description: String = ""
 
+    companion object{
+        fun TransactionDBModel.toDTO(): TransactionDTO {
+            val transactionDTO = TransactionDTO(
+                targetAccount = accountIdentifier!!,
+                amount = amount!!,
+                description = description
+            )
+
+            return transactionDTO
+        }
+    }
 
 }
