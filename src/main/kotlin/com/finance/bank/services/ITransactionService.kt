@@ -6,6 +6,6 @@ import com.finance.bank.controller.dto.TransactionDTO
 interface ITransactionService {
 
     fun addBank(dto: TransactionDTO): TransactionDTO?
-    fun getBankById(id: Long): TransactionDTO?
+    fun getBankById(id: Long): OverviewTransactionDTO?
     fun getAllTransactions(): List<OverviewTransactionDTO>
 }

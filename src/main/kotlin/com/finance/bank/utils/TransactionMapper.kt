@@ -24,7 +24,7 @@ object TransactionMapper {
         return model
     }
 
-    fun toTransactionEntity(model: TransactionDBModel):OverviewTransactionDTO{
+    fun toTransactionDto(model: TransactionDBModel):OverviewTransactionDTO{
         val overviewTransactionDTO = OverviewTransactionDTO(
             targetAccount = model.accountIdentifier!!,
             createdDate = model.createdAt!!,

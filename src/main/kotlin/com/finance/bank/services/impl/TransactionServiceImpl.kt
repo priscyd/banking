@@ -30,7 +30,7 @@ class TransactionServiceImpl(val repository: TransferRepository) : ITransactionS
 
     }
 
-    override fun getBankById(id: Long): TransactionDTO? {
+    override fun getBankById(id: Long): OverviewTransactionDTO? {
         val optionalTransaction = repository.findById(id)
         if (optionalTransaction.isPresent) {
 
@@ -38,7 +38,7 @@ class TransactionServiceImpl(val repository: TransferRepository) : ITransactionS
 
             logger.info("Successfully retrieved transaction with id {} ", id)
 
-            val dataDto = TransactionMapper.toDto(entityModel)
+            val dataDto = TransactionMapper.toTransactionDto(entityModel)
 
             logger.info("Successfully converted model to dto {} ", dataDto)
 
@@ -50,7 +50,7 @@ class TransactionServiceImpl(val repository: TransferRepository) : ITransactionS
     override fun getAllTransactions(): List<OverviewTransactionDTO> {
         val allTransactions = repository.findAll()
 
-        return allTransactions.map { TransactionMapper.toTransactionEntity(it) }
+        return allTransactions.map { TransactionMapper.toTransactionDto(it) }
     }
 
 
