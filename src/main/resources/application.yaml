@@ -7,3 +7,7 @@ spring:
     driver: com.mysql.cj.jdbc.Driver
     username: "root"
     password: "root123"
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

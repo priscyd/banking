@@ -1,8 +1,11 @@
 package com.finance.bank.services
 
-import com.finance.bank.controller.models.TransactionDTO
+import com.finance.bank.controller.dto.OverviewTransactionDTO
+import com.finance.bank.controller.dto.TransactionDTO
 
 interface ITransactionService {
+
     fun addBank(dto: TransactionDTO): TransactionDTO?
     fun getBankById(id: Long): TransactionDTO?
+    fun getAllTransactions(): List<OverviewTransactionDTO>
 }

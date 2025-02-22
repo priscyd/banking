@@ -1,31 +1,18 @@
 package com.finance.bank.repository.models
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.finance.bank.controller.models.TransactionDTO
+import com.finance.bank.audit.AuditAwareImpl
 import jakarta.persistence.*
-import java.util.*
+
 
 @Entity
-@Table(name = "Transaction")
-class TransactionDBModel {
+@Table(name = "transactions")
+class TransactionDBModel : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-    var date: Date = Date()
+
+    @Column(name = "account_identifier", length = 255)
     var accountIdentifier: String? = ""
     var amount: Double? = 0.0
     var description: String = ""
-
-    companion object{
-        fun TransactionDBModel.toDTO(): TransactionDTO {
-            val transactionDTO = TransactionDTO(
-                targetAccount = accountIdentifier!!,
-                amount = amount!!,
-                description = description
-            )
-
-            return transactionDTO
-        }
-    }
-
 }

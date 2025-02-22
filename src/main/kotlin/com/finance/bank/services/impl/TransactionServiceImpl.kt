@@ -1,11 +1,10 @@
 package com.finance.bank.services.impl
 
-import com.finance.bank.controller.models.TransactionDTO
-import com.finance.bank.controller.models.toEntity
+import com.finance.bank.controller.dto.OverviewTransactionDTO
+import com.finance.bank.controller.dto.TransactionDTO
 import com.finance.bank.repository.TransferRepository
-import com.finance.bank.repository.models.TransactionDBModel
-import com.finance.bank.repository.models.TransactionDBModel.Companion.toDTO
 import com.finance.bank.services.ITransactionService
+import com.finance.bank.utils.TransactionMapper
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -18,7 +17,10 @@ class TransactionServiceImpl(val repository: TransferRepository) : ITransactionS
     override fun addBank(dto: TransactionDTO): TransactionDTO? {
        logger.info("TransactionServiceImpl :: addBank :: creating a transaction with :: $dto")
         try {
-            repository.save(dto.toEntity())
+
+            val dataModel = TransactionMapper.toEntity(dto)
+
+            repository.save(dataModel)
             logger.info("successfully created transaction ")
             return  dto
         }catch (e: Exception){
@@ -31,10 +33,24 @@ class TransactionServiceImpl(val repository: TransferRepository) : ITransactionS
     override fun getBankById(id: Long): TransactionDTO? {
         val optionalTransaction = repository.findById(id)
         if (optionalTransaction.isPresent) {
-            val entityModel = optionalTransaction.get() as TransactionDBModel
-            return entityModel.toDTO()
+
+            val entityModel = optionalTransaction.get()
+
+            logger.info("Successfully retrieved transaction with id {} ", id)
+
+            val dataDto = TransactionMapper.toDto(entityModel)
+
+            logger.info("Successfully converted model to dto {} ", dataDto)
+
+            return dataDto
         }
         return null
+    }
+
+    override fun getAllTransactions(): List<OverviewTransactionDTO> {
+        val allTransactions = repository.findAll()
+
+        return allTransactions.map { TransactionMapper.toTransactionEntity(it) }
     }
 
 

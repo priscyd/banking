@@ -1,6 +1,7 @@
 package com.finance.bank.utils
 
-import com.finance.bank.controller.models.TransactionDTO
+import com.finance.bank.controller.dto.OverviewTransactionDTO
+import com.finance.bank.controller.dto.TransactionDTO
 import com.finance.bank.repository.models.TransactionDBModel
 
 object TransactionMapper {
@@ -21,6 +22,17 @@ object TransactionMapper {
         model.amount = dto.amount
         model.description = dto.description
         return model
+    }
+
+    fun toTransactionEntity(model: TransactionDBModel):OverviewTransactionDTO{
+        val overviewTransactionDTO = OverviewTransactionDTO(
+            targetAccount = model.accountIdentifier!!,
+            createdDate = model.createdAt!!,
+            description = model.description,
+            id = model.id!!,
+            amount = model.amount!!
+        )
+        return  overviewTransactionDTO
     }
 
 }
