@@ -4,7 +4,6 @@ import com.finance.bank.controller.dto.ApiResponseDto
 import com.finance.bank.controller.dto.OverviewTransactionDTO
 import com.finance.bank.controller.dto.TransactionDTO
 import com.finance.bank.services.ITransactionService
-import jakarta.persistence.Id
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity

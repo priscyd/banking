@@ -1,6 +1,5 @@
 package com.finance.bank.repository.models
 
-import com.finance.bank.audit.AuditAwareImpl
 import jakarta.persistence.*
 
 

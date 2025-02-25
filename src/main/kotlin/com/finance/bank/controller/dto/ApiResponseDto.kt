@@ -6,13 +6,3 @@ data class ApiResponseDto<T>(
     val data: T?
 )
 
-fun main(str: Array<String>){
-
-
-    val apiResponseDto = ApiResponseDto<List<TransactionDTO>>(
-        code = "",
-        message = "",
-        data = listOf()
-    )
-
-}
